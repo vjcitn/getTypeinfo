@@ -1,0 +1,38 @@
+---
+title: "getTypeinfo: parse doc comments to obtain type information of arguments and return values"
+shorttitle: "outlier dytection methods"
+author: "Vincent J. Carey, stvjc at channing.harvard.edu"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{getTypeinfo: parse doc comments to obtain type information}
+  %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    highlight: pygments
+    number_sections: yes
+    theme: united
+    toc: yes
+---
+
+# Introduction
+
+Arguments to R functions are not formally declared.
+The [quickr](https://github.com/t-kalinowski/quickr) package
+provides a protocol for declaring argument types to
+support transpilation.  At present we do not make use
+of this approach.
+
+Some conventions of documenting arguments to functions
+in roxygen can be used to heuristically determine
+argument types.
+
+## Processing source files
+
+```{r lk1}
+library(getTypeinfo)
+srcf = system.file("demos", "mvcal.R", package="getTypeinfo")
+tt = get_types(srcf)
+lapply(tt, packup)
+```
+
