@@ -33,6 +33,44 @@ argument types.
 library(getTypeinfo)
 srcf = system.file("demos", "mvcal.R", package="getTypeinfo")
 tt = get_types(srcf)
-lapply(tt, packup)
+tt
+```
+
+## Using an LLM to infer data types
+
+When an ellmer chat instance is available, we can ask it
+for assistance in identifying input argument types.  The 
+prompt used was supplied with the 'btw' function,
+applied to parsed doc comments:
+
+```
+"Provide a CSV file with two columns, parameter names and their types, 
+which you will infer from their descriptions, typically just the first 
+word or phrase.  Return only one CSV with your best guesses on data 
+type of parameter.  Do not use any backticks or text formatting."
+```
+
+```{r dollm}
+if (nchar(Sys.getenv("OPENAI_API_KEY"))>0) {
+ ch = ellmer::chat_openai()
+ tt2 = get_types(srcf, ch)
+ tt2
+}
+```
+
+# Package level operations
+
+Because the sosta package has a reasonable approach
+to declaring data types of arguments, we use it
+as an example.
+
+```{r dop}
+tf = tempfile()
+dir.create(tf)
+setwd(tf)
+system("git clone --depth 1 https://git.bioconductor.org/packages/sosta")
+setwd("sosta/R")
+fis = system("grep -l function *", intern=TRUE)
+lapply(fis[1:3], function(x) {Sys.sleep(3); get_types(x, ch)})
 ```
 

@@ -5,12 +5,14 @@
 \title{Parse an R source file with roxygen2 doc comments and extract
 argument types and return value}
 \usage{
-get_types(path, punct = ";")
+get_types(path, ch, punct = ";")
 }
 \arguments{
 \item{path}{character(1) path to source file}
 
 \item{punct}{character(1) regular expression of tokens to be removed, defaults to ";"}
+
+\item{chat}{instance from ellmer}
 }
 \description{
 Parse an R source file with roxygen2 doc comments and extract
@@ -19,5 +21,11 @@ argument types and return value
 \examples{
 srcf = system.file("demos", "mvcal.R", package="getTypeinfo")
 tt = get_types(srcf)
-lapply(tt, packup)
+tt 
+lkkey = Sys.getenv("OPENAI_API_KEY")
+if (nchar(lkkey)>0 && requireNamespace("ellmer")) {
+ch = ellmer::chat_openai()
+tt2 = get_types(srcf, ch)
+tt2
+}
 }

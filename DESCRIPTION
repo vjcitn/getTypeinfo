@@ -11,8 +11,8 @@ Authors@R:
 Description: Use heuristics on roxygen2 outputs to enumerate argument types and return values
 	for R functions
 Depends: R (>= 4.1.0), tools, utils
-Imports: dplyr, roxygen2
-Suggests: knitr, BiocStyle, testthat, rmarkdown
+Imports: dplyr, roxygen2, btw
+Suggests: knitr, BiocStyle, testthat, rmarkdown, ellmer
 License: MIT + file LICENSE
 VignetteBuilder: knitr
 biocViews: Infrastructure
